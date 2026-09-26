@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radar de Quesos</title>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  overflow:hidden;
+}
+canvas{
+  display:block;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="radar"></canvas>
+
+<script>
+
+const canvas = document.getElementById("radar");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let barrido = 0;
+
+const quesos = [
+ {nombre:"🧀 Manchego",x:100,y:-120},
+ {nombre:"🧀 Brie",x:200,y:80},
+ {nombre:"🧀 Cabrales",x:-160,y:-50},
+ {nombre:"🧀 Gouda",x:-120,y:180}
+];
+
+function dibujar(){
+
+ ctx.fillStyle="black";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ const cx=canvas.width/2;
+ const cy=canvas.height/2;
+
+ ctx.strokeStyle="#00ff00";
+
+ for(let r=50;r<300;r+=50){
+   ctx.beginPath();
+   ctx.arc(cx,cy,r,0,Math.PI*2);
+   ctx.stroke();
+ }
+* ctx.beginPath();
+ ctx.moveTo(cx,cy);
+
+ ctx.lineTo(
+   cx + Math.cos(barrido)*300,
+   cy + Math.sin(barrido)*300
+ );
+
+ ctx.lineWidth=3;
+ ctx.st*oke();
+
+ quesos.forEach(q=>{
+
+   l*t px = cx + q.x;
+   let py = cy + *.y;
+
+   ctx.beginPath();
+   ctx.arc(px,py,6,0,Math.PI*2);
+   ctx.fillStyle="#00ff00";
+   ctx.fill();
+
+   ctx.fillText(q.nombre,px+10,py);
+ });
+
+ barrido += 0.02;
+
+ requestAnimationFrame(dibujar);
+}
+
+dibujar();
+
+</script>
+
+</body>
+</html>
